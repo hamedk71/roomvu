@@ -1,0 +1,30 @@
+@use './breakpoints' as *;
+
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  max-width: 100%;
+  
+  @include sm-up {
+    max-width: 600px;
+  }
+  
+  @include md-up {
+    max-width: 720px;
+  }
+  
+  @include lg-up {
+    max-width: 960px;
+  }
+  
+  @include xl-up {
+    max-width: 1200px;
+  }
+  
+  @include xxl-up {
+    max-width: 1400px;
+  }
+} 

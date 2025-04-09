@@ -27,33 +27,3 @@ a {
   color: inherit;
   text-decoration: none;
 }
-
-.container {
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  
-  max-width: 100%;
-  
-  @media (min-width: var(--breakpoint-sm)) {
-    max-width: 600px;
-  }
-  
-  @media (min-width: var(--breakpoint-md)) {
-    max-width: 720px;
-  }
-  
-  @media (min-width: var(--breakpoint-lg)) {
-    max-width: 960px;
-  }
-  
-  @media (min-width: var(--breakpoint-xl)) {
-    max-width: 1200px;
-  }
-  
-  @media (min-width: var(--breakpoint-2xl)) {
-    max-width: 1400px;
-  }
-}
