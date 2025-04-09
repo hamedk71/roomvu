@@ -5,7 +5,7 @@ export interface NavItem {
 }
 
 export interface HeaderProps {
+  navItems?: NavItem[];
   cartItemsCount?: number;
   onCartClick?: () => void;
-  navItems?: NavItem[];
 } 

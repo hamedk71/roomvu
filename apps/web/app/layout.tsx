@@ -3,7 +3,6 @@ import localFont from "next/font/local";
 import { Header } from "../components/layout/header";
 import { ToastContainer } from "react-toastify";
 
-
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/globals.scss";
 

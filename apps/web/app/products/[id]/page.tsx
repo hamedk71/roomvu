@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { toast } from 'react-toastify';
 import { useProduct } from '../../../services/products/hooks';
+import { useCartStore } from '../../../store/cart-store';
 import styles from './product.module.scss';
 
 type PageParams = {
@@ -20,9 +21,23 @@ export default function ProductPage({ params }: ProductPageProps) {
   const productId = parseInt(unwrappedParams.id, 10);
   const { product, loading, error } = useProduct(productId);
   const [quantity, setQuantity] = useState(1);
+  const { addToCart, items } = useCartStore();
 
   const handleAddToCart = () => {
     if (product) {
+      // Check if item quantity would exceed maximum
+      const existingItem = items.find(item => item.product.id === product.id);
+      
+      if (existingItem && existingItem.quantity + quantity > 5) {
+        toast.warning(`Cannot add ${quantity} more. Maximum quantity (5) would be exceeded.`);
+        return;
+      }
+      
+      // Add to cart for each quantity
+      for (let i = 0; i < quantity; i++) {
+        addToCart(product);
+      }
+      
       toast.success(`Added ${quantity} ${product.title} to cart`);
     }
   };

@@ -3,23 +3,30 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 import { Button, CartIcon, MenuIcon, CloseIcon } from "@repo/ui";
 
-import { HeaderProps } from "./header.types";
 import { mainNavLinks } from "../../../constants/navlinks";
+import { useCartStore } from "../../../store/cart-store";
+
+import { HeaderProps } from "./header.types";
 
 import styles from "./header.module.scss";
 
 export function Header({
-  cartItemsCount = 0,
-  onCartClick,
   navItems = mainNavLinks,
-}: HeaderProps) {
+}: Omit<HeaderProps, 'cartItemsCount' | 'onCartClick'>) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { totalItems } = useCartStore();
+  const router = useRouter();
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen((prev) => !prev);
+  };
+
+  const handleCartClick = () => {
+    router.push('/cart');
   };
 
   return (
@@ -48,11 +55,11 @@ export function Header({
             <button
               className={styles.header__cart}
               aria-label="Shopping cart"
-              onClick={onCartClick}
+              onClick={handleCartClick}
             >
               <CartIcon />
-              {cartItemsCount > 0 && (
-                <span className={styles.header__cart_count}>{cartItemsCount}</span>
+              {totalItems > 0 && (
+                <span className={styles.header__cart_count}>{totalItems}</span>
               )}
             </button>
 

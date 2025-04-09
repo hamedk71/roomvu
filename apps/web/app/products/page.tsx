@@ -8,12 +8,15 @@ import { toast } from 'react-toastify';
 import { useInfiniteProducts } from '../../services/products/hooks';
 import { Product } from '../../services/products/types';
 
+import { useCartStore } from '../../store/cart-store';
+
 import styles from './products.module.scss';
 
 export default function ProductsPage() {
   const { products, loading, error, hasMore, loadMore } = useInfiniteProducts();
   const observerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const { addToCart, items } = useCartStore();
   
   useEffect(() => {
     if (loading || !hasMore) return;
@@ -42,7 +45,16 @@ export default function ProductsPage() {
   
   const handleAddToCart = (product: Product, e: React.MouseEvent) => {
     e.stopPropagation();
-    toast.info(`Added ${product.title} to cart`);
+    
+    const existingItem = items.find(item => item.product.id === product.id);
+    
+    if (existingItem && existingItem.quantity >= 5) {
+      toast.warning(`Maximum quantity (5) reached for ${product.title}`);
+      return;
+    }
+    
+    addToCart(product);
+    toast.success(`Added ${product.title} to cart`);
   };
   
   const handleProductClick = (product: Product) => {
