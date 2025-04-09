@@ -1,0 +1,27 @@
+:root {
+  /* Colors */
+  --background: #171717;
+  --foreground: #fff;
+  
+  /* Font sizes */
+  --text-sm: 14px;      /* 0.875rem */
+  --text-base: 16px;    /* 1rem */
+  --text-lg: 20px;      /* 1.25rem */
+  --text-xl: 24px;      /* 1.5rem */
+  --text-2xl: 32px;     /* 2rem */
+  --text-3xl: 40px;     /* 2.5rem */
+  
+  /* Font weights */
+  --font-light: 300;
+  --font-regular: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  
+  /* Breakpoints */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+} 
