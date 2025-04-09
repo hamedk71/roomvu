@@ -1,4 +1,4 @@
-@use '@repo/styles' as *;
+@use '@repo/styles/breakpoints' as bp;
 
 .header {
   position: sticky;
@@ -21,11 +21,11 @@
     align-items: center;
     gap: 24px;
     
-    @include md {
+    @include bp.md {
       gap: 12px;
     }
     
-    @include sm {
+    @include bp.sm {
       gap: 8px;
     }
   }
@@ -44,7 +44,7 @@
     align-items: center;
     gap: 2rem;
     
-    @include md {
+    @include bp.md {
       display: none;
     }
   }
@@ -64,13 +64,15 @@
     align-items: center;
     gap: 1rem;
     
-    @include sm {
+    @include bp.sm {
       gap: 0.5rem;
     }
   }
   
   &__auth_button {
-    @include sm {
+    display: inline-block;
+    
+    @include bp.sm {
       display: none;
     }
   }
@@ -108,7 +110,7 @@
     font-size: var(--text-xl);
     cursor: pointer;
     
-    @include md {
+    @include bp.md {
       display: block;
     }
   }
@@ -141,4 +143,4 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
   }
-} 
+}

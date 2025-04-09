@@ -5,7 +5,9 @@
   "main": "./src/index.scss",
   "exports": {
     ".": "./src/index.scss",
-    "./*": "./src/*"
+    "./breakpoints": "./src/breakpoints.scss",
+    "./variables": "./src/variables.scss",
+    "./container": "./src/container.scss"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0"

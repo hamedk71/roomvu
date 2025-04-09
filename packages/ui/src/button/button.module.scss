@@ -1,4 +1,4 @@
-@use '@repo/styles' as *;
+@use '@repo/styles/breakpoints' as bp;
 
 .btn {
   display: inline-flex;
@@ -11,13 +11,18 @@
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   position: relative;
-
+  
+  &:focus {
+    outline: 2px solid var(--primary-500);
+    outline-offset: 2px;
+  }
   
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
   }
   
+  // Size variants
   &_sm {
     font-size: var(--text-sm);
     padding: 0.5rem 0.75rem;
@@ -36,6 +41,7 @@
     height: 48px;
   }
   
+  // Color variants
   &_primary {
     background-color: var(--primary-600);
     color: var(--neutral-50);
@@ -88,10 +94,12 @@
     }
   }
   
+  // Full width variant
   &_fullWidth {
     width: 100%;
   }
   
+  // Loading state
   &_loading {
     cursor: progress;
     
@@ -110,6 +118,7 @@
     animation: btn-spinner 0.75s linear infinite;
   }
   
+  // Icon styles
   &__icon_left {
     display: inline-flex;
     align-items: center;
