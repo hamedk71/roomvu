@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 import { Button, CartIcon, MenuIcon, CloseIcon } from "@repo/ui";
 
@@ -20,6 +20,7 @@ export function Header({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { totalItems } = useCartStore();
   const router = useRouter();
+  const pathname = usePathname();
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen((prev) => !prev);
@@ -43,7 +44,12 @@ export function Header({
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`${styles.header__link} ${item.isActive ? styles.header__link_active : ""}`}
+                  className={`${styles.header__link} ${
+                    (pathname === item.href) || 
+                    (item.href !== '/' && pathname.startsWith(item.href))
+                      ? styles.header__link_active
+                      : ""
+                  }`}
                 >
                   {item.label}
                 </Link>
@@ -86,7 +92,12 @@ export function Header({
           <Link
             key={item.href}
             href={item.href}
-            className={`${styles.header__link} ${item.isActive ? styles.header__link_active : ""}`}
+            className={`${styles.header__link} ${
+              (pathname === item.href) || 
+              (item.href !== '/' && pathname.startsWith(item.href))
+                ? styles.header__link_active
+                : ""
+            }`}
             onClick={() => setMobileMenuOpen(false)}
           >
             {item.label}
