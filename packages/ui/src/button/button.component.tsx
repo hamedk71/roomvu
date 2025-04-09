@@ -1,6 +1,6 @@
 import React from 'react';
 import { ButtonProps } from './button.types';
-import './button.style.scss';
+import styles from './button.module.scss';
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
@@ -18,13 +18,12 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     }, 
     ref
   ) => {
-    const baseClassName = 'btn';
     const classes = [
-      baseClassName,
-      `${baseClassName}--${variant}`,
-      `${baseClassName}--${size}`,
-      fullWidth ? `${baseClassName}--full-width` : '',
-      isLoading ? `${baseClassName}--loading` : '',
+      styles.btn,
+      styles[`btn_${variant}`],
+      styles[`btn_${size}`],
+      fullWidth ? styles.btn_fullWidth : '',
+      isLoading ? styles.btn_loading : '',
       className
     ].filter(Boolean).join(' ');
 
@@ -36,19 +35,19 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {isLoading && (
-          <span className={`${baseClassName}__spinner`} aria-hidden="true" />
+          <span className={styles.btn__spinner} aria-hidden="true" />
         )}
         
         {leftIcon && !isLoading && (
-          <span className={`${baseClassName}__icon ${baseClassName}__icon--left`}>
+          <span className={styles.btn__icon_left}>
             {leftIcon}
           </span>
         )}
         
-        <span className={`${baseClassName}__text`}>{children}</span>
+        <span className={styles.btn__text}>{children}</span>
         
         {rightIcon && !isLoading && (
-          <span className={`${baseClassName}__icon ${baseClassName}__icon--right`}>
+          <span className={styles.btn__icon_right}>
             {rightIcon}
           </span>
         )}

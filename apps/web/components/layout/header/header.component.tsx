@@ -9,7 +9,7 @@ import { Button, CartIcon, MenuIcon, CloseIcon } from "@repo/ui";
 import { HeaderProps } from "./header.types";
 import { mainNavLinks } from "../../../constants/navlinks";
 
-import "./header.style.scss";
+import styles from "./header.module.scss";
 
 export function Header({
   cartItemsCount = 0,
@@ -23,20 +23,20 @@ export function Header({
   };
 
   return (
-    <header className="header">
+    <header className={styles.header}>
       <div className="container">
-        <div className="header__container">
-          <div className="header__nav-container">
-            <Link href="/" className="header__logo">
+        <div className={styles.header__container}>
+          <div className={styles.header__nav_container}>
+            <Link href="/" className={styles.header__logo}>
               <Image src="/logo.svg" alt="Shop" width={120} height={60} />
             </Link>
 
-            <nav className="header__nav">
+            <nav className={styles.header__nav}>
               {navItems.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`header__link ${item.isActive ? "header__link--active" : ""}`}
+                  className={`${styles.header__link} ${item.isActive ? styles.header__link_active : ""}`}
                 >
                   {item.label}
                 </Link>
@@ -44,24 +44,24 @@ export function Header({
             </nav>
           </div>
 
-          <div className="header__actions">
+          <div className={styles.header__actions}>
             <button
-              className="header__cart"
+              className={styles.header__cart}
               aria-label="Shopping cart"
               onClick={onCartClick}
             >
               <CartIcon />
               {cartItemsCount > 0 && (
-                <span className="header__cart-count">{cartItemsCount}</span>
+                <span className={styles.header__cart_count}>{cartItemsCount}</span>
               )}
             </button>
 
-            <Button variant="primary" size="sm" className="header__auth-button">
+            <Button variant="primary" size="sm" className={styles.header__auth_button}>
               Login / Register
             </Button>
 
             <button
-              className="header__mobile-toggle"
+              className={styles.header__mobile_toggle}
               aria-label="Toggle mobile menu"
               onClick={toggleMobileMenu}
             >
@@ -72,14 +72,14 @@ export function Header({
       </div>
 
       <div
-        className={`header__mobile-menu ${mobileMenuOpen ? "header__mobile-menu--open" : ""}`}
+        className={`${styles.header__mobile_menu} ${mobileMenuOpen ? styles.header__mobile_menu_open : ""}`}
         aria-hidden={!mobileMenuOpen}
       >
         {navItems.map((item) => (
           <Link
             key={item.href}
             href={item.href}
-            className={`header__link ${item.isActive ? "header__link--active" : ""}`}
+            className={`${styles.header__link} ${item.isActive ? styles.header__link_active : ""}`}
             onClick={() => setMobileMenuOpen(false)}
           >
             {item.label}

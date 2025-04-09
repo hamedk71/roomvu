@@ -16,7 +16,7 @@
     height: 60px;
   }
   
-  &__nav-container {
+  &__nav_container {
     display: flex;
     align-items: center;
     gap: 24px;
@@ -54,7 +54,7 @@
     font-weight: var(--font-medium);
     transition: color 0.2s ease;
     
-    &:hover, &--active {
+    &:hover, &_active {
       color: var(--foreground);
     }
   }
@@ -69,7 +69,7 @@
     }
   }
   
-  &__auth-button {
+  &__auth_button {
     @include sm {
       display: none;
     }
@@ -83,7 +83,7 @@
     cursor: pointer;
     font-size: var(--text-xl);
     
-    &-count {
+    &_count {
       position: absolute;
       top: -8px;
       right: -8px;
@@ -100,7 +100,7 @@
     }
   }
   
-  &__mobile-toggle {
+  &__mobile_toggle {
     display: none;
     background: transparent;
     border: none;
@@ -113,7 +113,7 @@
     }
   }
   
-  &__mobile-menu {
+  &__mobile_menu {
     position: fixed;
     top: 61px;
     left: 0;
@@ -130,7 +130,7 @@
     overflow-y: auto;
     visibility: hidden;
     
-    &--open {
+    &_open {
       transform: translateX(0);
       visibility: visible;
     }
