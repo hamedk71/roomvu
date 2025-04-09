@@ -1,84 +1,112 @@
-# Turborepo starter
+# RoomVu Monorepo
 
-This Turborepo starter is maintained by the Turborepo core team.
+A Turborepo monorepo with Next.js applications and shared packages.
 
-## Using this example
+## Setup
 
-Run the following command:
+### Prerequisites
 
-```sh
-npx create-turbo@latest
+- Node.js v22 (preferred) or v20 (LTS versions only)
+- pnpm package manager
+
+### Installation
+
+```bash
+# Install dependencies
+pnpm install
 ```
 
-## What's inside?
+### Environment Configuration
 
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm build
+1. In each application directory, copy the example environment file:
+```bash
+cp apps/web/.env.example apps/web/.env.local
 ```
 
-### Develop
-
-To develop all apps and packages, run the following command:
-
+2. Update each `.env.local` file with the appropriate API URLs:
 ```
-cd my-turborepo
+NEXT_PUBLIC_API_URL=https://fakestoreapi.com
+NEXT_PUBLIC_API_TIMEOUT=10000
+```
+
+## Development
+
+To run all applications and packages in development mode:
+
+```bash
 pnpm dev
 ```
 
-### Remote Caching
+To run a specific app:
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
+```bash
+pnpm dev --filter=web
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+Open [http://localhost:3000](http://localhost:3000) to view the web application.
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+## Build
 
+To build all applications and packages:
+
+```bash
+pnpm build
 ```
-npx turbo link
+
+To build a specific app:
+
+```bash
+pnpm build --filter=web
 ```
 
-## Useful Links
+## Code Conventions
 
-Learn more about the power of Turborepo:
+### Branch Naming
 
-- [Tasks](https://turbo.build/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/docs/reference/command-line-reference)
+Branches should follow this pattern:
+`type/description-in-kebab-case`
+
+**Types:**
+* `feature`: New functionality
+* `bugfix`: Bug fixes
+* `hotfix`: Critical fixes for production
+* `docs`: Documentation updates
+* `refactor`: Code improvements
+
+**Examples:**
+* `feature/user-authentication`
+* `bugfix/login-validation`
+* `docs/api-documentation`
+
+### Commit Messages
+
+All commit messages must follow this format: `type(scope): description`
+
+**Types:**
+* `feat`: New feature
+* `fix`: Bug fix
+* `docs`: Documentation changes
+* `style`: Changes that don't affect code (formatting, etc.)
+* `refactor`: Code change that neither fixes a bug nor adds a feature
+* `test`: Adding missing tests
+* `chore`: Changes to build process or auxiliary tools
+
+**Examples:**
+* `feat(auth): add login form validation`
+* `fix(api): handle timeout errors properly`
+* `docs(readme): update installation steps`
+
+### Component Styling
+
+Each React component must:
+- Have its own dedicated `.module.scss` file
+- Follow BEM methodology adapted for React components
+- Maintain proper TypeScript typing for all style-related props
+- Use scoped and modular styling approaches
+
+### Filename Conventions
+
+Name files with `kebab-case`. e.g. `accordion.tsx`, `my-control.tsx`, and `users-service.entity.ts`.
+
+One or more `.` can be used to separate the name of the class or type from the logical type of the entity or the action/responsibility when multiple files of the same name exist in a directory.
+For example `user.service.ts`, `user.repository.ts`, and `user.dto.ts`.
