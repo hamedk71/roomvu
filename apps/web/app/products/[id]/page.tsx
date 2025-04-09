@@ -3,9 +3,13 @@
 import React, { useState, use } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
+
 import { toast } from 'react-toastify';
+
 import { useProduct } from '../../../services/products/hooks';
 import { useCartStore } from '../../../store/cart-store';
+
 import styles from './product.module.scss';
 
 type PageParams = {
@@ -61,16 +65,7 @@ export default function ProductPage({ params }: ProductPageProps) {
   }
 
   if (error || !product) {
-    return (
-      <main className="container">
-        <div className={styles.error}>
-          <p>Failed to load product. Please try again later.</p>
-          <Link href="/products" className={styles.backLink}>
-            Back to Products
-          </Link>
-        </div>
-      </main>
-    );
+    notFound();
   }
 
   return (
