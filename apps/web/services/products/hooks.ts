@@ -16,9 +16,7 @@ export function useProducts() {
       setProducts(data);
       setError(null);
     } catch (err) {
-      setError(
-        err instanceof Error ? err : new Error("Failed to fetch products")
-      );
+      setError(err instanceof Error ? err : new Error("Failed to fetch products"));
     } finally {
       setLoading(false);
     }
@@ -43,11 +41,7 @@ export function useProduct(id: number) {
       setProduct(data);
       setError(null);
     } catch (err) {
-      setError(
-        err instanceof Error
-          ? err
-          : new Error(`Failed to fetch product with id ${id}`)
-      );
+      setError(err instanceof Error ? err : new Error(`Failed to fetch product with id ${id}`));
     } finally {
       setLoading(false);
     }
@@ -58,4 +52,65 @@ export function useProduct(id: number) {
   }, [fetchProduct]);
 
   return { product, loading, error, refetch: fetchProduct };
+}
+
+export function useInfiniteProducts(itemsPerPage = 6) {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [totalProducts, setTotalProducts] = useState(0);
+  
+  useEffect(() => {
+    async function fetchInitialProducts() {
+      try {
+        setLoading(true);
+        
+        const allProducts = await ProductsApi.getProducts();
+        setTotalProducts(allProducts.length);
+        
+        setProducts(allProducts.slice(0, itemsPerPage));
+        
+        setHasMore(allProducts.length > itemsPerPage);
+      } catch (err) {
+        setError(err instanceof Error ? err : new Error("Failed to fetch products"));
+      } finally {
+        setLoading(false);
+      }
+    }
+    
+    fetchInitialProducts();
+  }, [itemsPerPage]);
+  
+  const loadMore = useCallback(async () => {
+    if (loading || !hasMore) return;
+    
+    try {
+      setLoading(true);
+      
+      const nextPage = page + 1;
+      const startIndex = (nextPage - 1) * itemsPerPage;
+      
+      const allProducts = await ProductsApi.getProducts();
+      const nextPageProducts = allProducts.slice(0, startIndex + itemsPerPage);
+      
+      setProducts(nextPageProducts);
+      setPage(nextPage);
+      setHasMore(nextPageProducts.length < totalProducts);
+      
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error("Failed to load more products"));
+    } finally {
+      setLoading(false);
+    }
+  }, [loading, hasMore, page, itemsPerPage, totalProducts]);
+  
+  return {
+    products,
+    loading,
+    error,
+    hasMore,
+    loadMore
+  };
 }
